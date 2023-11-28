@@ -1,3 +1,19 @@
+  const toggleButton = document.getElementById('toggleDarkMode');
+  const body = document.body;
+  const main = document.querySelector('main');
+  const table = document.getElementById('calendar');
+  const buttons = document.querySelectorAll('button');
+
+  toggleButton.addEventListener('click', function() {
+      body.classList.toggle('dark-mode');
+      main.classList.toggle('dark-mode');
+      table.classList.toggle('dark-mode');
+
+      buttons.forEach(button => {
+          button.classList.toggle('dark-mode');
+      });
+  });
+
 const calendarBody = document.querySelector('#calendar tbody');
 const monthYearElement = document.querySelector('#month-year');
 const today = new Date();
@@ -58,3 +74,27 @@ document.getElementById('next-month').addEventListener('click', function () {
   }
   updateCalendar();
 });
+
+const mediaQuery = window.matchMedia('(max-width: 586px)');
+
+function handleScreenSizeChange() {
+  const thElements = document.querySelectorAll('th');
+
+  thElements.forEach(th => {
+      const fullDay = th.querySelector('.full');
+      const abbrDay = th.querySelector('.abbr');
+
+      if (mediaQuery.matches) {
+          fullDay.style.display = 'none';
+          abbrDay.style.display = 'inline-block';
+      } else {
+          fullDay.style.display = 'inline-block';
+          abbrDay.style.display = 'none';
+      }
+  });
+}
+
+
+handleScreenSizeChange(); 
+
+mediaQuery.addListener(handleScreenSizeChange); 
